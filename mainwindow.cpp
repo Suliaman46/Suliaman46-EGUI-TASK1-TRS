@@ -67,17 +67,9 @@ void MainWindow::on_tableView_activated(const QModelIndex &index)
 
 void MainWindow::on_dateEdit_userDateChanged(const QDate &date)
 {
-//    ui->dailyActivitiesTbl->reset();
-//    DataBase::getInstance().read();
     sessionUser::getInstance().setDate(date);
     dataModel* myModel = new dataModel(DataBase::getInstance().getUserList());
     ui->dailyActivitiesTbl->setModel(myModel);
-//    ui->dailyActivitiesTbl->setModel(xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx)
-    //    dataModel ;
-//    tableView.setModel(&myModel);
-//    tableView.show();
-
-
 }
 
 
@@ -86,5 +78,11 @@ void MainWindow::on_addEntryBtn_clicked()
         addEntry addEntryWindow;
         addEntryWindow.setModal(true);
         addEntryWindow.exec();
+}
+
+
+void MainWindow::on_saveJsonBtn_clicked()
+{
+    DataBase::getInstance().write();
 }
 

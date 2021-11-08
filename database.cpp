@@ -21,31 +21,23 @@ int DataBase::sizeActivities()
     return activitiesList->sizeActivities();
 }
 
-//QVariant DataBase::getData(int row, int column)
-//{
-
-//    foreach(const user us, userList)
-//    {
-//        if(sessionUser::getInstance().getUserName() == us.getName())
-//        {
-//            us.getData(row,column,sessionUser::getInstance().getDate());
-//        }
-//    }
-//}
 
 const QList<user*>& DataBase::getUserList() const
 {
     return userList;
 }
 
-//int DataBase::numEntries() const
-//{
-//    foreach(const user* us, userList)
-//    {
-//        if(us->getName() == sessionUser::getInstance().getUserName())
-//            return us->getNumEntries(sessionUser::getInstance().getDate().toString("yyyy-MM"));
-//    }
-//}
+QStringList DataBase::getActivityCodeStringList() const
+{
+    QStringList toReturn ;
+    for(auto act: activitiesList->getActivitiesList())
+    {
+        toReturn.append(act->code());
+    }
+
+    return toReturn;
+}
+
 
 void DataBase::read()
 {
@@ -104,7 +96,41 @@ void DataBase::read()
 
 }
 
+void DataBase::write()
+{
+    //////////Writing Activties ///////////////////////
+
+    QFile saveFile("/home/suliaman/EGUI2021Z/egui2021z-abass-suliaman/DATABASE/activity.json");
+    if (!saveFile.open(QIODevice::WriteOnly)) {
+           qWarning("Couldn't open save file.");
+       }
+    QJsonObject activitiesObject;
+    activitiesList->write(activitiesObject);
+
+    QJsonDocument saveActivities(activitiesObject);
+    saveFile.write(saveActivities.toJson());
+    saveFile.close();
+
+    ///  QFile saveFile(QString(basePath + "/users.json"));
+
+    //////////Writing User Entry ///////////////////////
+    for(auto us: userList)
+    {
+        us->write();
+    }
+
+}
+
 QStringList DataBase::subcodeList(const QString &code)
 {
-    return activitiesList->subcodeList(code);
+    QStringList toReturn ;
+    for(auto act: activitiesList->getActivitiesList())
+    {
+        if(act->code() == code)
+        {
+            return act->getSubactivities();
+        }
+    }
+    return toReturn;
+
 }

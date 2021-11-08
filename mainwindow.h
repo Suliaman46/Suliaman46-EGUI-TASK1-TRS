@@ -25,6 +25,8 @@ private slots:
 
     void on_addEntryBtn_clicked();
 
+    void on_saveJsonBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

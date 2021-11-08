@@ -187,7 +187,7 @@ void entry::read(const QJsonObject &json)
 
 void entry::write(QJsonObject &json) const
 {
-    json["date "] = pDate.toString("yyyy-mm-dd");
+    json["date "] = pDate.toString("yyyy-MM-dd");
     json["code "] = pCode;
     json["subcode "]= pSubcode;
     json["time "]= pTime;
@@ -258,15 +258,6 @@ void month::read(const QJsonObject &json)
 
 void month::write(QJsonObject &json) const
 {
-    json["frozen "] = pFrozen;
-    QJsonArray entryArray;
-    foreach(const entry* ent,pEntries)
-    {
-        QJsonObject activityObject;
-        ent->write(activityObject);
-        entryArray.append(activityObject);
-    }
-    json["entries "] = entryArray;
 
     QJsonArray acceptedArray;
     foreach(const accepted* act, pAcceptedTimes)
@@ -276,6 +267,19 @@ void month::write(QJsonObject &json) const
         acceptedArray.append(acceptedObject);
     }
     json["accepted "] = acceptedArray;
+
+    QJsonArray entryArray;
+    foreach(const entry* ent,pEntries)
+    {
+        QJsonObject activityObject;
+        ent->write(activityObject);
+        entryArray.append(activityObject);
+    }
+    json["entries "] = entryArray;
+
+    json["frozen "] = pFrozen;
+
+
 }
 
 //QVariant month::getData(int row, int column, QDate date) const
@@ -355,13 +359,16 @@ void user::write()
 ///
     foreach(const month *report, monthlyReports)
     {
-        QFile saveFile(pDirectory.absolutePath()+"/"+pName+"-"+report->pMonthYear.toString("yyyy-mm")+".json");
+        QFile saveFile(pDirectory.absolutePath()+"/"+pName+"-"+report->pMY+".json");
+        if (!saveFile.open(QIODevice::WriteOnly)) {
+               qWarning("Couldn't open save file.");
+           }
         QJsonObject reportObject;
         report->write(reportObject);
 
         QJsonDocument saveReport(reportObject);
         saveFile.write(saveReport.toJson());
-
+        saveFile.close();
     }
 
 }

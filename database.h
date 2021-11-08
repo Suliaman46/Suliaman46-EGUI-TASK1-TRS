@@ -18,10 +18,12 @@ public:
     QVariant getData(int row, int column);
     int sizeActivities();
     void read();
+    void write();
 //    int numEntries() const;
 
     QStringList subcodeList(const QString &code);
     const QList<user*>& getUserList() const;
+    QStringList  getActivityCodeStringList() const;
 private:
 //    inline static DataBase* theInstance;
     activities* activitiesList;

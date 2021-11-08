@@ -26,11 +26,11 @@
     <string>ENTER</string>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>80</x>
-     <y>30</y>
+     <x>70</x>
+     <y>50</y>
      <width>261</width>
      <height>151</height>
     </rect>
@@ -77,6 +77,25 @@
      <widget class="QLineEdit" name="lineEdit_description"/>
     </item>
    </layout>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>20</y>
+     <width>151</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="text">
+    <string>Please Click on Code</string>
+   </property>
   </widget>
  </widget>
  <resources/>

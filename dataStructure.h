@@ -57,6 +57,7 @@ public:
     QStringList subcodeList(const QString code);
 
     const QList<activity*>& getActivitiesList() const;
+
 private:
     QList<activity*> pActivitiesList;
 };
