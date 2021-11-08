@@ -1,23 +1,7 @@
 #include "dataStructure.h"
-#ifndef DATABASE_H
-#define DATABASE_H
-
-
-
-
-//class DataBase
-//{
-//public:
-//    static DataBase & getInstance();
-//    DataBase() ;
-//    activities activitiesList;
-//    QList<user> userList;
-//    void addActivity(const QString &code,const QString &name,const QString &manager, bool active, int budget);
-
-//private:
-//    inline static DataBase *instance;
-
-//};
+#include "sessionuser.h"
+#ifndef DATAHANDLING\DATABASE_H
+#define DATAHANDLING\DATABASE_H
 
 
 class DataBase
@@ -29,12 +13,18 @@ public:
     }
 
     void addActivity(const QString &code,const QString &name,const QString &manager, bool active, int budget);
+    void addEntry(const QString&code, const QString &subcode ,int time,const QString &description);
+    QVariant getData(int row, int column);
     int sizeActivities();
+    void read();
+    int numEntries() const;
 
+    QStringList subcodeList(const QString &code);
+    QList<user>& getUserList();
 private:
     activities activitiesList;
     QList<user> userList;
     DataBase(){} ;
 
 };
-#endif // DATABASE_H
+#endif // DATAHANDLING\DATABASE_H

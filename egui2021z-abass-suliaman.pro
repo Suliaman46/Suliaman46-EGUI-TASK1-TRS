@@ -14,18 +14,23 @@ SOURCES += \
     database.cpp \
     datamodel.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    sessionloginwindow.cpp \
+    sessionuser.cpp
 
 HEADERS += \
     addactivity.h \
     dataStructure.h \
     database.h \
     datamodel.h \
-    mainwindow.h
+    mainwindow.h \
+    sessionloginwindow.h \
+    sessionuser.h
 
 FORMS += \
     addactivity.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    sessionloginwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

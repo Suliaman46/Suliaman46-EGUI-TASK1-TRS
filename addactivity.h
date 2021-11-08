@@ -19,6 +19,8 @@ public:
 private slots:
     void on_buttonBox_accepted();
 
+    void on_comboBox_activated(const QString &arg1);
+
 private:
     Ui::ADDACTIVITY *ui;
 };

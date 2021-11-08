@@ -16,11 +16,16 @@ ADDACTIVITY::~ADDACTIVITY()
 void ADDACTIVITY::on_buttonBox_accepted()
 {
     QString codeProject = ui->lineEdit_code->text();
-    QString nameProject = ui->lineEdit_name->text();
-    QString managerProject = ui->lineEdit_manager->text();
-    int budgetProject = ui->lineEdit_budget->text().toInt();
-//    DataBase::getInstance().addActivity(codeProject,nameProject,managerProject,true,budgetProject);
-    DataBase & DB = DataBase::getInstance();
-    DB.addActivity(codeProject,nameProject,managerProject,true,budgetProject);
+//    QString subcodeProject = ui->lineEdit_subcode->text();
+    QString descriptionProject = ui->lineEdit_description->text();
+    int time = ui->lineEdit_time->text().toInt();
+//    DataBase::getInstance().addEntry(codeProject,subcodeProject,time,descriptionProject);
+}
+
+
+void ADDACTIVITY::on_comboBox_activated(const QString &arg1)
+{
+//    QStringList subcodeList;
+    ui->comboBox->insertItems(0,DataBase::getInstance().subcodeList(ui->lineEdit_code->text()));
 }
 

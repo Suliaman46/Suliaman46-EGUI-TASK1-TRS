@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "dataStructure.h"
 #include "addactivity.h"
+#include "sessionuser.h"
 #include <QFile>
 #include <QByteArray>
 #include <QJsonDocument>
@@ -9,6 +10,7 @@
 #include <QJsonArray>
 #include <QDebug>
 #include <QDir>
+#include <QTableView>
 #include <iostream>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -60,12 +62,27 @@ void MainWindow::on_pushButton_2_clicked()
     ADDACTIVITY addActivity;
     addActivity.setModal(true);
     addActivity.exec();
+//    sessionUser & SL = sessionUser::getInstance();
+//    qDebug() << "username is " + SL.getUserName();
 
 }
 
 
 void MainWindow::on_tableView_activated(const QModelIndex &index)
 {
+
+}
+
+
+void MainWindow::on_dateEdit_userDateChanged(const QDate &date)
+{
+    DataBase::getInstance().read();
+    sessionUser::getInstance().setDate(date);
+    ui->dailyActivitiesTbl->setModel(xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx)
+    dataModel ;
+    tableView.setModel(&myModel);
+    tableView.show();
+
 
 }
 

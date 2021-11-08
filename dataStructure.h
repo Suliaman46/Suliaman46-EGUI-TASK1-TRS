@@ -5,7 +5,7 @@
 #include <QJsonArray>
 #include <QDate>
 #include <QDir>
-
+#include "sessionuser.h"
 #ifndef DATASTRUCTURE_H
 #define DATASTRUCTURE_H
 
@@ -33,6 +33,7 @@ public:
     void read(const QJsonObject& json);
     void write(QJsonObject &json) const;
 
+    QStringList getSubactivities() const;
 
 private:
     QString pCode;
@@ -53,8 +54,8 @@ public:
     void write(QJsonObject &json) const;
     void create(const QString &code,const QString &name,const QString &manager, bool active, int budget);
     int sizeActivities();
-    QVariant getData(int row, int column);
-
+//    QVariant getData(int row, int column);
+    QStringList subcodeList(const QString code);
 private:
     QList<activity> pActivitiesList;
 };
@@ -69,7 +70,8 @@ public:
 
     void read(const QJsonObject& json);
     void write(QJsonObject &json) const;
-    QVariant getData(int index);
+    QVariant getData(int index) const;
+    QDate getDate() const;
 
 private:
     QString pCode;
@@ -92,7 +94,6 @@ private:
     int pTime;
 };
 
-//// MONTH AND ACTIVITIES ARE VIABLE OPTIONS TO BE DERIVED FROM THE SAME PARENT CALSS
 class month
 {
 public:
@@ -101,6 +102,13 @@ public:
     void read(const QJsonObject & json);
     void write( QJsonObject & json) const;
     QDate pMonthYear;
+    QString pMY;
+    QVariant getData(int row, int column, QDate date) const;
+    int getNumEntries() const;
+
+    const QList<entry>& getEntries() const;
+
+    void addEntry(const QString &code, const QString &subcode, int time, const QString &description);
 private:
 
     bool pFrozen;
@@ -117,6 +125,14 @@ public:
     user(QString name, QString dir);
     void read();
     void write();
+    QString getName() const;
+    QVariant getData(int row, int column, QDate date) const;
+    int getNumEntries(QString monthYear) const;
+
+    void addEntry(const QString &code, const QString &subcode, int time, const QString &description);
+
+    const QList<entry>& getEntries(QString targetMonthYear) const;
+
 private:
     QString pName;
     QDir pDirectory;

@@ -1,8 +1,8 @@
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
 #include <QMainWindow>
-
+#include "datamodel.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -21,6 +21,8 @@ private slots:
     void on_pushButton_2_clicked();
 
     void on_tableView_activated(const QModelIndex &index);
+
+    void on_dateEdit_userDateChanged(const QDate &date);
 
 private:
     Ui::MainWindow *ui;
