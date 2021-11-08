@@ -1,7 +1,7 @@
 #include "dataStructure.h"
 #include "sessionuser.h"
-#ifndef DATAHANDLING\DATABASE_H
-#define DATAHANDLING\DATABASE_H
+#ifndef DATABASE_H
+#define DATABASE_H
 
 
 class DataBase
@@ -9,6 +9,7 @@ class DataBase
 public:
     static DataBase & getInstance(){
         static DataBase theInstance;
+//        return *DataBase::theInstance;
         return theInstance;
     }
 
@@ -17,14 +18,15 @@ public:
     QVariant getData(int row, int column);
     int sizeActivities();
     void read();
-    int numEntries() const;
+//    int numEntries() const;
 
     QStringList subcodeList(const QString &code);
-    QList<user>& getUserList();
+    const QList<user*>& getUserList() const;
 private:
-    activities activitiesList;
-    QList<user> userList;
-    DataBase(){} ;
+//    inline static DataBase* theInstance;
+    activities* activitiesList;
+    QList<user*> userList;
+    DataBase(){ activitiesList = new activities;} ;
 
 };
-#endif // DATAHANDLING\DATABASE_H
+#endif // DATABASE_H

@@ -54,10 +54,11 @@ public:
     void write(QJsonObject &json) const;
     void create(const QString &code,const QString &name,const QString &manager, bool active, int budget);
     int sizeActivities();
-//    QVariant getData(int row, int column);
     QStringList subcodeList(const QString code);
+
+    const QList<activity*>& getActivitiesList() const;
 private:
-    QList<activity> pActivitiesList;
+    QList<activity*> pActivitiesList;
 };
 
 
@@ -106,14 +107,14 @@ public:
     QVariant getData(int row, int column, QDate date) const;
     int getNumEntries() const;
 
-    const QList<entry>& getEntries() const;
+    const QList<entry*>& getEntries() const;
 
     void addEntry(const QString &code, const QString &subcode, int time, const QString &description);
 private:
 
     bool pFrozen;
-    QList<entry> pEntries;
-    QList<accepted> pAcceptedTimes;
+    QList<entry*> pEntries;
+    QList<accepted*> pAcceptedTimes;
 
 };
 
@@ -126,17 +127,17 @@ public:
     void read();
     void write();
     QString getName() const;
-    QVariant getData(int row, int column, QDate date) const;
+//    QVariant getData(int row, int column, QDate date) const;
     int getNumEntries(QString monthYear) const;
 
     void addEntry(const QString &code, const QString &subcode, int time, const QString &description);
 
-    const QList<entry>& getEntries(QString targetMonthYear) const;
+    const QList<entry*>& getEntries(QString targetMonthYear) const;
 
 private:
     QString pName;
     QDir pDirectory;
-    QList<month> monthlyReports;
+    QList<month*> monthlyReports;
 
 
 };

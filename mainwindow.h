@@ -16,13 +16,14 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_clicked();
 
-    void on_pushButton_2_clicked();
 
-    void on_tableView_activated(const QModelIndex &index);
+   void on_tableView_activated(const QModelIndex &index);
 
     void on_dateEdit_userDateChanged(const QDate &date);
+
+
+    void on_addEntryBtn_clicked();
 
 private:
     Ui::MainWindow *ui;

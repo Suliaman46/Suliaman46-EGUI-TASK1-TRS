@@ -18,8 +18,8 @@ sessionLoginWindow::~sessionLoginWindow()
 void sessionLoginWindow::on_pushButton_clicked()
 {
     QString userName = ui->lineEdit_userName->text();
-    sessionUser & SU = sessionUser::getInstance();
-    SU.setUserName(userName);
+    sessionUser::getInstance().setUserName(userName);
+    DataBase::getInstance().read();
     this->hide();
 }
 

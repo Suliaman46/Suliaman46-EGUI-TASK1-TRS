@@ -14,32 +14,6 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>680</x>
-      <y>240</y>
-      <width>89</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>PushButton</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_2">
-    <property name="geometry">
-     <rect>
-      <x>680</x>
-      <y>290</y>
-      <width>89</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>ADD</string>
-    </property>
-   </widget>
    <widget class="QDateEdit" name="dateEdit">
     <property name="geometry">
      <rect>
@@ -49,15 +23,38 @@
       <height>26</height>
      </rect>
     </property>
+    <property name="displayFormat">
+     <string>yyyy-MM-dd</string>
+    </property>
+    <property name="date">
+     <date>
+      <year>2021</year>
+      <month>1</month>
+      <day>1</day>
+     </date>
+    </property>
    </widget>
    <widget class="QTableView" name="dailyActivitiesTbl">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>130</y>
-      <width>256</width>
-      <height>192</height>
+      <x>40</x>
+      <y>100</y>
+      <width>651</width>
+      <height>341</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="addEntryBtn">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>20</y>
+      <width>111</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>ADD ENTRY</string>
     </property>
    </widget>
   </widget>
