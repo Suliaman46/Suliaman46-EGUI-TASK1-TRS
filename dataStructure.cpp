@@ -107,6 +107,13 @@ QStringList activity::getSubactivities() const
     return toReturn;
 }
 
+void activity::setSubactivities(const QStringList &newSubactivities)
+{
+    subactivities = newSubactivities;
+}
+
+
+
 activities::activities()
 {
 
@@ -139,9 +146,10 @@ void activities::write(QJsonObject &json) const
 
 }
 
-void activities::create(const QString &code,const QString &name,const QString &manager, bool active, int budget)
+void activities::create(const QString &code,const QString &name,const QString &manager, bool active, int budget,const QStringList& newSubactivities )
 {
     activity* new_act = new activity(code,name,manager,active,budget);
+    new_act->setSubactivities(newSubactivities);
     pActivitiesList.append(new_act);
 }
 
@@ -197,6 +205,26 @@ void entry::write(QJsonObject &json) const
 QDate entry::getDate() const
 {
     return pDate;
+}
+
+void entry::setPCode(const QString &newPCode)
+{
+    pCode = newPCode;
+}
+
+void entry::setPSubcode(const QString &newPSubcode)
+{
+    pSubcode = newPSubcode;
+}
+
+void entry::setPDescription(const QString &newPDescription)
+{
+    pDescription = newPDescription;
+}
+
+void entry::setPTime(int newPTime)
+{
+    pTime = newPTime;
 }
 
 QVariant entry::getData(int index) const
@@ -282,26 +310,51 @@ void month::write(QJsonObject &json) const
 
 }
 
-//QVariant month::getData(int row, int column, QDate date) const
-//{
-//    int row_num = 0;
-//    foreach(const entry ent, pEntries)
-//    {
-//        if(date == ent.getDate())
-//        {
-//            row_num++;
-//            if(row_num ==row)
-//                return ent.getData(column);
-//        }
-//    }
-//}
-
 
 void month::addEntry(const QString &code, const QString &subcode, int time, const QString &description)
 {
     entry* toAdd = new entry(code,subcode,description,time,sessionUser::getInstance().getDate());
     pEntries.append(toAdd);
 }
+
+void month::editEntry(const QString &code, const QString &subcode, int time, const QString &description)
+{
+    int count = 1;
+    for(auto ent: pEntries)
+    {
+        if(ent->getDate() == sessionUser::getInstance().getDate())
+        {
+            if(count == sessionUser::getInstance().getRowSelected())
+            {
+                ent->setPCode(code);
+                ent->setPSubcode(subcode);
+                ent->setPTime(time);
+                ent->setPDescription(description);
+            }
+            count++;
+        }
+
+    }
+}
+
+void month::removeEntry()
+{
+    int count = 1;
+    for(auto ent: pEntries)
+    {
+        if(ent->getDate() == sessionUser::getInstance().getDate())
+        {
+            if(count == sessionUser::getInstance().getRowSelected())
+            {
+               pEntries.removeOne(ent);
+            }
+            count++;
+        }
+
+    }
+}
+
+
 int month::getNumEntries() const
 {
     return pEntries.size();
@@ -423,6 +476,28 @@ const QList<entry*> &user::getEntries(QString targetMonthYear) const
         if(targetMonthYear == report->pMY)
         {
             return report->getEntries();
+        }
+    }
+}
+
+void user::editEntry(const QString &code, const QString &subcode, int time, const QString &description)
+{
+    for(auto report: monthlyReports)
+    {
+        if(report->pMY == sessionUser::getInstance().getDate().toString("yyyy-MM"))
+        {
+            report->editEntry(code,subcode,time,description);
+        }
+    }
+}
+
+void user::removeEntry()
+{
+    for(auto report: monthlyReports)
+    {
+        if(report->pMY == sessionUser::getInstance().getDate().toString("yyyy-MM"))
+        {
+            report->removeEntry();
         }
     }
 }

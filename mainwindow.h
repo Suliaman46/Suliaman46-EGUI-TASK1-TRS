@@ -27,6 +27,18 @@ private slots:
 
     void on_saveJsonBtn_clicked();
 
+    void on_addActivityBtn_clicked();
+
+    void on_comboBox_rowNum_textActivated(const QString &arg1);
+
+    void on_editEntryBtn_clicked();
+
+    void refreshModel();
+
+    void on_refreshTblBtn_clicked();
+
+    void on_deleteEntryBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

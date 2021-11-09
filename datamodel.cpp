@@ -59,7 +59,8 @@ QVariant dataModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-QVariant dataModel::header(int section, Qt::Orientation orientation, int role) const
+QVariant dataModel::headerData(int section, Qt::Orientation orientation, int role) const
+
 {
     if (role != Qt::DisplayRole)
         return QVariant();
@@ -76,7 +77,6 @@ QVariant dataModel::header(int section, Qt::Orientation orientation, int role) c
             return QStringLiteral("Description");
         }
     }
-
     return QStringLiteral("%0").arg(section + 1);
 }
 
@@ -92,3 +92,5 @@ void dataModel::initTable(QTableView &table)
     table.setFocusPolicy(Qt::NoFocus);
     table.setSelectionMode(QAbstractItemView::NoSelection);
 }
+
+

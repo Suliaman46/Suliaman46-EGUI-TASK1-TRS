@@ -20,7 +20,8 @@ public:
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     int columnCount(const QModelIndex &parent= QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role) const;
-    QVariant header(int section, Qt::Orientation orientation,int role) const;
+    QVariant headerData(int section, Qt::Orientation orientation, int role) const;
+
     void initTable(QTableView& table);
 private:
     QList<dailyActivitiesTableDB*> tableList;

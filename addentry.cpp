@@ -7,6 +7,8 @@ addEntry::addEntry(QWidget *parent) :
     ui(new Ui::addEntry)
 {
     ui->setupUi(this);
+    ui->comboBox_code->setPlaceholderText("Choose Code");
+    ui->comboBox_code->setCurrentIndex(-1);
     ui->comboBox_code->addItems(DataBase::getInstance().getActivityCodeStringList());
 }
 
@@ -19,8 +21,6 @@ addEntry::~addEntry()
 void addEntry::on_comboBox_code_textActivated(const QString &arg1)
 {
     ui->comboBox_subCode->clear();
-    qDebug() <<arg1;
-    qDebug() <<"anything4";
     ui->comboBox_subCode->addItems(DataBase::getInstance().subcodeList(arg1));
 
 }
@@ -28,7 +28,10 @@ void addEntry::on_comboBox_code_textActivated(const QString &arg1)
 
 void addEntry::on_pushButton_enter_clicked()
 {
-    DataBase::getInstance().addEntry(ui->comboBox_code->currentText(),ui->comboBox_subCode->currentText(),ui->lineEdit_time->text().toInt(),ui->lineEdit_description->text());
+    DataBase::getInstance().addEntry(ui->comboBox_code->currentText(),
+                                     ui->comboBox_subCode->currentText(),
+                                     ui->lineEdit_time->text().toInt(),
+                                     ui->lineEdit_description->text());
     close();
 }
 

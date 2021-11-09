@@ -22,3 +22,13 @@ void sessionUser::setDate(const QDate argDate)
 {
     date = argDate;
 }
+
+int sessionUser::getRowSelected() const
+{
+    return rowSelected;
+}
+
+void sessionUser::setRowSelected(int rowNum)
+{
+    rowSelected = rowNum;
+}

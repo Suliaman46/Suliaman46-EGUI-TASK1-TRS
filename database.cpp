@@ -1,8 +1,8 @@
 #include "database.h"
 
-void DataBase::addActivity(const QString &code, const QString &name, const QString &manager, bool active, int budget)
+void DataBase::addActivity(const QString &code, const QString &name, const QString &manager, bool active, int budget,const QStringList& newSubactivities )
 {
-    activitiesList->create(code,name,manager,true,budget);
+    activitiesList->create(code,name,manager,active,budget, newSubactivities);
 }
 
 void DataBase::addEntry(const QString &code, const QString &subcode, int time, const QString &description)
@@ -36,6 +36,26 @@ QStringList DataBase::getActivityCodeStringList() const
     }
 
     return toReturn;
+}
+
+void DataBase::editEntry(const QString &code, const QString &subcode, int time, const QString &description)
+{
+    for(auto us: userList)
+    {
+        if(us->getName() == sessionUser::getInstance().getUserName())
+        {
+            us->editEntry(code,subcode,time,description);
+        }
+    }
+}
+
+void DataBase::removeEntry()
+{
+    for (auto us: userList)
+    {
+        if(us->getName() == sessionUser::getInstance().getUserName())
+            us->removeEntry();
+    }
 }
 
 
@@ -134,3 +154,5 @@ QStringList DataBase::subcodeList(const QString &code)
     return toReturn;
 
 }
+
+

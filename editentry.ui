@@ -1,65 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>addEntry</class>
- <widget class="QDialog" name="addEntry">
+ <class>editEntry</class>
+ <widget class="QDialog" name="editEntry">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>483</width>
+    <height>336</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QPushButton" name="pushButton_enter">
+  <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>230</x>
-     <y>230</y>
+     <x>330</x>
+     <y>280</y>
      <width>89</width>
      <height>25</height>
     </rect>
    </property>
    <property name="text">
-    <string>ENTER</string>
+    <string>Enter</string>
    </property>
   </widget>
-  <widget class="QWidget" name="layoutWidget">
+  <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
-     <x>70</x>
+     <x>100</x>
      <y>50</y>
-     <width>261</width>
-     <height>151</height>
+     <width>291</width>
+     <height>131</height>
     </rect>
    </property>
-   <layout class="QGridLayout" name="gridLayout">
+   <layout class="QFormLayout" name="formLayout">
     <item row="0" column="0">
      <widget class="QLabel" name="label">
       <property name="text">
-       <string>Code</string>
+       <string>Edit Code</string>
       </property>
      </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QComboBox" name="comboBox_code"/>
     </item>
     <item row="1" column="0">
      <widget class="QLabel" name="label_2">
       <property name="text">
-       <string>Sub Code</string>
+       <string>Edit SubCode</string>
       </property>
      </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QComboBox" name="comboBox_subCode"/>
     </item>
     <item row="2" column="0">
      <widget class="QLabel" name="label_3">
       <property name="text">
-       <string>Time</string>
+       <string>Edit Time</string>
       </property>
      </widget>
     </item>
@@ -69,12 +63,18 @@
     <item row="3" column="0">
      <widget class="QLabel" name="label_4">
       <property name="text">
-       <string>Description</string>
+       <string>Edit Description</string>
       </property>
      </widget>
     </item>
     <item row="3" column="1">
      <widget class="QLineEdit" name="lineEdit_description"/>
+    </item>
+    <item row="0" column="1">
+     <widget class="QComboBox" name="comboBox_code"/>
+    </item>
+    <item row="1" column="1">
+     <widget class="QComboBox" name="comboBox_subCode"/>
     </item>
    </layout>
   </widget>

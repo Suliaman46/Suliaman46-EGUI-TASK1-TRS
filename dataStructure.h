@@ -35,13 +35,15 @@ public:
 
     QStringList getSubactivities() const;
 
+    void setSubactivities(const QStringList &newSubactivities);
+
 private:
     QString pCode;
     QString pManager;
     QString pName;
     bool pActive;
     int pBudget;
-    QList<QString> subactivities;
+    QStringList subactivities;
 
 
 };
@@ -52,7 +54,7 @@ public:
     activities();
     void read(const QJsonObject &json);
     void write(QJsonObject &json) const;
-    void create(const QString &code,const QString &name,const QString &manager, bool active, int budget);
+    void create(const QString &code,const QString &name,const QString &manager, bool active, int budget,const QStringList& newSubactivities );
     int sizeActivities();
     QStringList subcodeList(const QString code);
 
@@ -74,6 +76,11 @@ public:
     void write(QJsonObject &json) const;
     QVariant getData(int index) const;
     QDate getDate() const;
+
+    void setPCode(const QString &newPCode);
+    void setPSubcode(const QString &newPSubcode);
+    void setPDescription(const QString &newPDescription);
+    void setPTime(int newPTime);
 
 private:
     QString pCode;
@@ -111,6 +118,9 @@ public:
     const QList<entry*>& getEntries() const;
 
     void addEntry(const QString &code, const QString &subcode, int time, const QString &description);
+    void editEntry(const QString&code, const QString &subcode ,int time,const QString &description);
+    void removeEntry();
+
 private:
 
     bool pFrozen;
@@ -134,6 +144,8 @@ public:
     void addEntry(const QString &code, const QString &subcode, int time, const QString &description);
 
     const QList<entry*>& getEntries(QString targetMonthYear) const;
+    void editEntry(const QString&code, const QString &subcode ,int time,const QString &description);
+    void removeEntry();
 
 private:
     QString pName;
