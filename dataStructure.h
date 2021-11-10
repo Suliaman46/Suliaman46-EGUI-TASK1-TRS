@@ -98,6 +98,11 @@ public:
     accepted() {}
     void read(const QJsonObject & json);
     void write( QJsonObject & json) const;
+    const QString &getPCode() const;
+    void setPCode(const QString &newPCode);
+    int getPTime() const;
+    void setPTime(int newPTime);
+
 private:
     QString pCode;
     int pTime;
@@ -115,11 +120,15 @@ public:
     QVariant getData(int row, int column, QDate date) const;
     int getNumEntries() const;
 
-    const QList<entry*>& getEntries() const;
+    const QList<entry*>* getEntries() const;
+    const QList<accepted*>* getAccepted() const;
 
     void addEntry(const QString &code, const QString &subcode, int time, const QString &description);
     void editEntry(const QString&code, const QString &subcode ,int time,const QString &description);
     void removeEntry();
+
+    bool getPFrozen() const;
+    void setPFrozen(bool newPFrozen);
 
 private:
 
@@ -143,7 +152,10 @@ public:
 
     void addEntry(const QString &code, const QString &subcode, int time, const QString &description);
 
-    const QList<entry*>& getEntries(QString targetMonthYear) const;
+    const QList<entry*> *getEntries(QString targetMonthYear) const;
+    const QList<accepted*>* getAccepted(QString targetMonthYear) const;
+
+
     void editEntry(const QString&code, const QString &subcode ,int time,const QString &description);
     void removeEntry();
 

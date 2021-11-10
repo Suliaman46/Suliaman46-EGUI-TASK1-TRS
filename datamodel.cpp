@@ -5,19 +5,24 @@ dataModel::dataModel(const QList<user*> &userList,QObject *parent) : QAbstractTa
     {
         if(us->getName() == sessionUser::getInstance().getUserName())
         {
-
-            for(auto ent: us->getEntries(sessionUser::getInstance().getDate().toString("yyyy-MM")))
+            if(us->getEntries(sessionUser::getInstance().getDate().toString("yyyy-MM")))
             {
-                if(ent->getDate() == sessionUser::getInstance().getDate()){
-                    dailyActivitiesTableDB* toAdd = new dailyActivitiesTableDB;
-                    toAdd->code = ent->getData(0).toString();
-                    toAdd->subcode = ent->getData(1).toString();
-                    toAdd->time = ent->getData(2).toInt();
-                    toAdd->description = ent->getData(3).toString();
-                    tableList.append(toAdd);
-                }
+                for(auto ent: *us->getEntries(sessionUser::getInstance().getDate().toString("yyyy-MM")))
+                {
+                    if(ent->getDate() == sessionUser::getInstance().getDate()){
+                        dailyActivitiesTableDB* toAdd = new dailyActivitiesTableDB;
+                        toAdd->code = ent->getData(0).toString();
+                        toAdd->subcode = ent->getData(1).toString();
+                        toAdd->time = ent->getData(2).toInt();
+                        toAdd->description = ent->getData(3).toString();
+                        tableList.append(toAdd);
+                        sessionUser::getInstance().setTotalDailyTime(sessionUser::getInstance().getTotalDailyTime() + toAdd->time);
+                    }
 
+                }
             }
+
+
         }
     }
 }

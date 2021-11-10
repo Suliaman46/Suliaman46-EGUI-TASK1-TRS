@@ -17,9 +17,19 @@ sessionLoginWindow::~sessionLoginWindow()
 
 void sessionLoginWindow::on_pushButton_clicked()
 {
-    QString userName = ui->lineEdit_userName->text();
-    sessionUser::getInstance().setUserName(userName);
+    sessionUser::getInstance().setUserName(ui->lineEdit_userName->text());
     DataBase::getInstance().read();
+    for(auto act: DataBase::getInstance().getActivitiesList())
+    {
+        if(act->manager() == sessionUser::getInstance().getUserName())
+        {
+            sessionUser::getInstance().setIsManager(true);
+            sessionUser::getInstance().setCodeManager(act->code());
+            break;
+        }
+        else
+            sessionUser::getInstance().setIsManager(false);
+    }
     this->hide();
 }
 

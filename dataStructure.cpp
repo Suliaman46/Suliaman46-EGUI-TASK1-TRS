@@ -80,7 +80,7 @@ void activity::read(const QJsonObject &json)
 void activity::write(QJsonObject &json) const
 {
     json["name "] = pName ;
-    json["manger "] = pManager;
+    json["manager "] = pManager;
     json["code "] = pCode ;
     json["budget "] = pBudget ;
     json["active "] = pActive ;
@@ -239,6 +239,8 @@ QVariant entry::getData(int index) const
         return pTime;
     case 3:
         return pDescription;
+    case 4:
+        return pDate.toString("yyyy-MM-dd");
 
     }
 }
@@ -253,6 +255,26 @@ void accepted::write(QJsonObject &json) const
 {
     json["code "] = pCode;
     json["time "] = pTime;
+}
+
+const QString &accepted::getPCode() const
+{
+    return pCode;
+}
+
+void accepted::setPCode(const QString &newPCode)
+{
+    pCode = newPCode;
+}
+
+int accepted::getPTime() const
+{
+    return pTime;
+}
+
+void accepted::setPTime(int newPTime)
+{
+    pTime = newPTime;
 }
 
 month::month(QString monthYear)
@@ -354,15 +376,30 @@ void month::removeEntry()
     }
 }
 
+bool month::getPFrozen() const
+{
+    return pFrozen;
+}
+
+void month::setPFrozen(bool newPFrozen)
+{
+    pFrozen = newPFrozen;
+}
+
 
 int month::getNumEntries() const
 {
     return pEntries.size();
 }
 
-const QList<entry*> &month::getEntries() const
+const QList<entry*> *month::getEntries() const
 {
-    return pEntries;
+    return &pEntries;
+}
+
+const QList<accepted *> *month::getAccepted() const
+{
+    return &pAcceptedTimes;
 }
 user::user()
 {
@@ -431,45 +468,31 @@ QString user::getName() const
     return pName;
 }
 
-//QVariant user::getData(int row, int column, QDate date) const
-//{
-//    foreach(const month mReport, monthlyReports)
-//    {
-//        /*if(mReport.pMonthYear.toString("yyyy-mm") == date.toString("yyyy-mm"))*/
-//        if(mReport.pMY == date.toString("yyyy-MM"))
-//        {
-//            return mReport.getData(row, column,date);
-//        }
-//    }
-//}
-
-
-
-//int user::getNumEntries(QString monthYear) const
-//{
-//    foreach(const month report, monthlyReports)
-//    {
-//        if(monthYear == report.pMY)
-//            return report.getNumEntries();
-//    }
-
-//    return 0;
-//}
-
 
 void user::addEntry(const QString &code, const QString &subcode, int time, const QString &description)
 {
-
-    for(auto& report: monthlyReports)
+    bool monthFound =false;
+    for(auto report: monthlyReports)
     {
         if(report->pMY == sessionUser::getInstance().getDate().toString("yyyy-MM"))
         {
+            monthFound = true;
             report->addEntry(code,subcode,time,description);
         }
     }
+
+    if(!monthFound)
+    {
+        month* toAdd = new month(sessionUser::getInstance().getDate().toString("yyyy-MM"));
+        toAdd->setPFrozen(false);
+        monthlyReports.append(toAdd);
+        addEntry(code,subcode,time,description);
+    }
+
+
 }
 
-const QList<entry*> &user::getEntries(QString targetMonthYear) const
+const QList<entry*> *user::getEntries(QString targetMonthYear) const
 {
     for(auto report:monthlyReports)
     {
@@ -478,6 +501,22 @@ const QList<entry*> &user::getEntries(QString targetMonthYear) const
             return report->getEntries();
         }
     }
+
+    return nullptr;
+
+}
+
+const QList<accepted *> *user::getAccepted(QString targetMonthYear) const
+{
+    for(auto report:monthlyReports)
+    {
+        if(targetMonthYear == report->pMY)
+        {
+            return report->getAccepted();
+        }
+    }
+
+    return nullptr;
 }
 
 void user::editEntry(const QString &code, const QString &subcode, int time, const QString &description)

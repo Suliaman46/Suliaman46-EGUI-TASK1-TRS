@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>862</width>
+    <height>556</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,7 +15,14 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0" rowspan="2">
+    <item row="5" column="0">
+     <widget class="QPushButton" name="refreshTblBtn">
+      <property name="text">
+       <string>Refresh</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0" rowspan="4">
      <widget class="QDateEdit" name="dateEdit">
       <property name="displayFormat">
        <string>yyyy-MM-dd</string>
@@ -29,10 +36,31 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="1" rowspan="2">
+    <item row="5" column="1">
+     <widget class="QPushButton" name="saveJsonBtn">
+      <property name="text">
+       <string>Save to Json</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="4">
+     <widget class="QLabel" name="label_totalTIme">
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1" rowspan="4">
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <widget class="QPushButton" name="addEntryBtn">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(138, 226, 52);
+border-color:rgb(78, 154, 6)</string>
+        </property>
         <property name="text">
          <string>ADD ENTRY</string>
         </property>
@@ -40,6 +68,11 @@
       </item>
       <item>
        <widget class="QPushButton" name="editEntryBtn">
+        <property name="styleSheet">
+         <string notr="true">background-color: yellow;
+border-color: rgb(196, 160, 0);
+</string>
+        </property>
         <property name="text">
          <string>EDIT ENTRY</string>
         </property>
@@ -47,6 +80,10 @@
       </item>
       <item>
        <widget class="QPushButton" name="deleteEntryBtn">
+        <property name="styleSheet">
+         <string notr="true">background-color: red;
+border-color: rgb(164, 0, 0);</string>
+        </property>
         <property name="text">
          <string>DELETE ENTRY</string>
         </property>
@@ -54,7 +91,7 @@
       </item>
      </layout>
     </item>
-    <item row="2" column="0" colspan="4">
+    <item row="4" column="0" colspan="5">
      <widget class="QTableView" name="dailyActivitiesTbl">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -64,14 +101,20 @@
       </property>
      </widget>
     </item>
-    <item row="3" column="3">
-     <widget class="QPushButton" name="saveJsonBtn">
+    <item row="5" column="3">
+     <widget class="QLabel" name="label_totalTimeDesc">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="text">
-       <string>Save to Json</string>
+       <string>TOTAL  TIME TODAY :</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="3">
+    <item row="0" column="4">
      <widget class="QPushButton" name="addActivityBtn">
       <property name="text">
        <string>ADD ACTIVITY</string>
@@ -79,33 +122,35 @@
      </widget>
     </item>
     <item row="1" column="2">
-     <layout class="QVBoxLayout" name="verticalLayout_2">
-      <item>
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>Row to EDIT/DELETE</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QComboBox" name="comboBox_rowNum">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="currentText">
-         <string/>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="3" column="0">
-     <widget class="QPushButton" name="refreshTblBtn">
+     <widget class="QLabel" name="label">
       <property name="text">
-       <string>Refresh</string>
+       <string>Row to EDIT/DELETE</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="2">
+     <widget class="QComboBox" name="comboBox_rowNum">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="currentText">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="4">
+     <widget class="QPushButton" name="managerBtn">
+      <property name="text">
+       <string>For Manager</string>
       </property>
      </widget>
     </item>
@@ -116,7 +161,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>862</width>
      <height>22</height>
     </rect>
    </property>

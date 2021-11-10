@@ -17,6 +17,9 @@ SOURCES += \
     editentry.cpp \
     main.cpp \
     mainwindow.cpp \
+    managerediting.cpp \
+    managermainwindow.cpp \
+    managertablemodel.cpp \
     sessionloginwindow.cpp \
     sessionuser.cpp
 
@@ -28,6 +31,9 @@ HEADERS += \
     datamodel.h \
     editentry.h \
     mainwindow.h \
+    managerediting.h \
+    managermainwindow.h \
+    managertablemodel.h \
     sessionloginwindow.h \
     sessionuser.h
 
@@ -36,6 +42,8 @@ FORMS += \
     addentry.ui \
     editentry.ui \
     mainwindow.ui \
+    managerediting.ui \
+    managermainwindow.ui \
     sessionloginwindow.ui
 
 # Default rules for deployment.

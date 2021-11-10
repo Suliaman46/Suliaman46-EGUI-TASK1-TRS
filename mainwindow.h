@@ -3,6 +3,7 @@
 #define MAINWINDOW_H
 #include <QMainWindow>
 #include "datamodel.h"
+#include "managermainwindow.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -39,7 +40,10 @@ private slots:
 
     void on_deleteEntryBtn_clicked();
 
+    void on_managerBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
+    managerMainWindow* newWindow;
 };
 #endif // MAINWINDOW_H

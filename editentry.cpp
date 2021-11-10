@@ -11,7 +11,7 @@ editEntry::editEntry(QWidget *parent) :
     int count = 1;
     for (auto us: DataBase::getInstance().getUserList())
     {
-            for(auto ent: us->getEntries(sessionUser::getInstance().getDate().toString("yyyy-MM")))
+            for(auto ent: *us->getEntries(sessionUser::getInstance().getDate().toString("yyyy-MM")))
             {
                 if(ent->getDate() == sessionUser::getInstance().getDate()){
                     if(count == sessionUser::getInstance().getRowSelected())

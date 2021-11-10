@@ -22,11 +22,15 @@ public:
     void write();
 //    int numEntries() const;
 
-    QStringList subcodeList(const QString &code);
     const QList<user*>& getUserList() const;
+    const QList<activity*> getActivitiesList() const;
+
+    QStringList subcodeList(const QString &code);
     QStringList  getActivityCodeStringList() const;
+    QStringList getUserNameStringList() const;
 
     void editEntry(const QString&code, const QString &subcode ,int time,const QString &description);
+    void editApprovedTime(const QString& forUserName, const QString& Month,const QString& code ,int approvedTime);
     void removeEntry();
 private:
 //    inline static DataBase* theInstance;

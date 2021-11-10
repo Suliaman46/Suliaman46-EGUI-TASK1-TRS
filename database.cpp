@@ -1,4 +1,5 @@
 #include "database.h"
+#include <QCoreApplication>
 
 void DataBase::addActivity(const QString &code, const QString &name, const QString &manager, bool active, int budget,const QStringList& newSubactivities )
 {
@@ -27,6 +28,11 @@ const QList<user*>& DataBase::getUserList() const
     return userList;
 }
 
+const QList<activity *> DataBase::getActivitiesList() const
+{
+    return this->activitiesList->getActivitiesList();
+}
+
 QStringList DataBase::getActivityCodeStringList() const
 {
     QStringList toReturn ;
@@ -38,6 +44,16 @@ QStringList DataBase::getActivityCodeStringList() const
     return toReturn;
 }
 
+QStringList DataBase::getUserNameStringList() const
+{
+    QStringList toReturn;
+    for(auto us: userList)
+    {
+        toReturn.append(us->getName());
+    }
+    return toReturn;
+}
+
 void DataBase::editEntry(const QString &code, const QString &subcode, int time, const QString &description)
 {
     for(auto us: userList)
@@ -45,6 +61,32 @@ void DataBase::editEntry(const QString &code, const QString &subcode, int time, 
         if(us->getName() == sessionUser::getInstance().getUserName())
         {
             us->editEntry(code,subcode,time,description);
+        }
+    }
+}
+
+void DataBase::editApprovedTime(const QString &forUserName, const QString &Month, const QString& code,int approvedTime)
+{
+    for (auto us :userList ) {
+        if(us->getName() == forUserName)
+        {
+            if(us->getEntries(Month))
+            {
+                if(us->getAccepted(Month))
+                {
+                    for (auto accepted : *us->getAccepted(Month) )
+                    {
+                        if(accepted->getPCode() == code)
+                        {
+                            accepted->setPTime(approvedTime);
+                        }
+                    }
+                }
+
+                accepted* toAdd = new accepted();
+                toAdd->setPCode(code);
+                toAdd->setPTime(approvedTime);
+            }
         }
     }
 }
@@ -61,9 +103,13 @@ void DataBase::removeEntry()
 
 void DataBase::read()
 {
+    QDir directory(QCoreApplication::applicationDirPath());
+    directory.cdUp();
+    directory.cd("egui2021z-abass-suliaman/DATABASE");
+
     /////////Reading Activities/////////////////////
 
-    QString dirAct = "/home/suliaman/EGUI2021Z/egui2021z-abass-suliaman/DATABASE/activity.json";
+    QString dirAct = directory.absoluteFilePath("activity.json");
     QFile file(dirAct);
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     QByteArray jsonData = file.readAll();
@@ -77,50 +123,41 @@ void DataBase::read()
     //////////Reading User Entry ///////////////////////
 
 
-    QString dir = "/home/suliaman/EGUI2021Z/egui2021z-abass-suliaman/DATABASE/USERS";
-    QDir userDirectory(dir);
-    QStringList list = userDirectory.entryList();
 
+    directory.cd("USERS");
 
-//    QString filename = pDirectory.absolutePath()+"/";
-//    QStringList list = pDirectory.entryList(filters);
+    QString dir = directory.absolutePath();
+    QDir userDirectory(directory);
+    QStringList list = userDirectory.entryList(QDir::NoDot | QDir::NoDotDot | QDir::Dirs);
+
+    bool userFound = false;
     for (int i = 0; i< list.size(); ++i)
     {
-        qDebug()<< list.at(i);
-        if(sessionUser::getInstance().getUserName() == list.at(i))
-        {
             user* userToAdd = new user(list.at(i), dir);
             userToAdd->read();
             userList.append(userToAdd);
-        }
-
-//        filename = filename + list.at(i);
-//        QFile file(filename);
-//        file.open(QIODevice::ReadOnly | QIODevice::Text);
-//        QByteArray jsonData = file.readAll();
-//        file.close();
-
-//        QJsonDocument document = QJsonDocument::fromJson(jsonData);
-//        QJsonObject object = document.object();
-
-//        month temp(filename.right(7));
-//        temp.read(object);
-//        monthlyReports.append(temp);
-
+            userFound = true;
     }
 
-
-
-
-
+    if(!getUserNameStringList().contains(sessionUser::getInstance().getUserName()))
+    {
+        QString userName = sessionUser::getInstance().getUserName();
+        if(!userDirectory.exists(userName))
+            userDirectory.mkpath(userName);
+        user* userToAdd = new user(userName,dir);
+        userList.append(userToAdd);
+    }
 
 }
 
 void DataBase::write()
 {
     //////////Writing Activties ///////////////////////
+    QDir directory(QCoreApplication::applicationDirPath());
+    directory.cdUp();
+    directory.cd("egui2021z-abass-suliaman/DATABASE");
 
-    QFile saveFile("/home/suliaman/EGUI2021Z/egui2021z-abass-suliaman/DATABASE/activity.json");
+    QFile saveFile(directory.absolutePath()+"/"+"activity.json");
     if (!saveFile.open(QIODevice::WriteOnly)) {
            qWarning("Couldn't open save file.");
        }

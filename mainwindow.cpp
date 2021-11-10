@@ -5,6 +5,8 @@
 #include "addactivity.h"
 #include "editentry.h"
 #include "sessionuser.h"
+#include "managermainwindow.h"
+#include "managerediting.h"
 #include <QFile>
 #include <QByteArray>
 #include <QJsonDocument>
@@ -19,7 +21,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->comboBox_rowNum->setPlaceholderText("Select Row Num");
+    ui->comboBox_rowNum->setPlaceholderText("Select Row Number");
+    ui->comboBox_rowNum->setCurrentIndex(-1);
 }
 
 MainWindow::~MainWindow()
@@ -73,17 +76,7 @@ void MainWindow::on_dateEdit_userDateChanged(const QDate &date)
     ui->comboBox_rowNum->clear();
     sessionUser::getInstance().setDate(date);
     refreshModel();
-//    dataModel* myModel = new dataModel(DataBase::getInstance().getUserList());
-//    ui->dailyActivitiesTbl->setModel(myModel);
-//    int rowNum = myModel->rowCount();
-//    if(rowNum > 0)
-//    {
-//        QStringList forRowNumComboBox;
-//        for (int i= 0; i< rowNum ;++i ) {
-//            forRowNumComboBox.append(QString::number(i+1));
-//        }
-//        ui->comboBox_rowNum->addItems(forRowNumComboBox);
-//    }
+
 }
 
 
@@ -125,6 +118,7 @@ void MainWindow::on_comboBox_rowNum_textActivated(const QString &arg1)
 
 void MainWindow::refreshModel()
 {
+    sessionUser::getInstance().setTotalDailyTime(0);
     ui->comboBox_rowNum->clear();
     dataModel* myModel = new dataModel(DataBase::getInstance().getUserList());
     myModel->initTable(*ui->dailyActivitiesTbl);
@@ -138,7 +132,9 @@ void MainWindow::refreshModel()
         }
         ui->comboBox_rowNum->addItems(forRowNumComboBox);
     }
+    ui->label_totalTIme->setText(QString::number(sessionUser::getInstance().getTotalDailyTime()));
     sessionUser::getInstance().setRowSelected(0);
+
 }
 
 
@@ -152,5 +148,12 @@ void MainWindow::on_deleteEntryBtn_clicked()
 {
     DataBase::getInstance().removeEntry();
     refreshModel();
+}
+
+
+void MainWindow::on_managerBtn_clicked()
+{
+   newWindow = new managerMainWindow();
+   newWindow->show();
 }
 

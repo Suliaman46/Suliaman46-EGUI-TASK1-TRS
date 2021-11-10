@@ -4,6 +4,56 @@ sessionUser::sessionUser()
 {
 
 }
+
+const QString &sessionUser::getManagerReportMonth() const
+{
+    return managerReportMonth;
+}
+
+void sessionUser::setManagerReportMonth(const QString &newManagerReportMonth)
+{
+    managerReportMonth = newManagerReportMonth;
+}
+
+const QString &sessionUser::getTargetUserForManagerTable() const
+{
+    return targetUserForManagerTable;
+}
+
+void sessionUser::setTargetUserForManagerTable(const QString &newTargetUserForManagerTable)
+{
+    targetUserForManagerTable = newTargetUserForManagerTable;
+}
+
+bool sessionUser::getIsManager() const
+{
+    return isManager;
+}
+
+void sessionUser::setIsManager(bool newIsManager)
+{
+    isManager = newIsManager;
+}
+
+const QString &sessionUser::getCodeManager() const
+{
+    return codeManager;
+}
+
+void sessionUser::setCodeManager(const QString &newCodeManager)
+{
+    codeManager = newCodeManager;
+}
+
+int sessionUser::getTotalDailyTime() const
+{
+    return totalDailyTime;
+}
+
+void sessionUser::setTotalDailyTime(int newTotalDailyTime)
+{
+    totalDailyTime = newTotalDailyTime;
+}
 void sessionUser::setUserName(const QString &name)
 {
     userName = name;
