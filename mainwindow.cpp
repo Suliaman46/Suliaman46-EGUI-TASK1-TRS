@@ -159,6 +159,7 @@ void MainWindow::on_managerBtn_clicked()
 
 void MainWindow::on_pushButton_clicked()
 {
+    //TO OPEN THE MONTHL ACTIVITY WINDOW
     monthlyActivity window;
     window.setModal(true);
     window.exec();
