@@ -91,6 +91,38 @@ void DataBase::editApprovedTime(const QString &forUserName, const QString &Month
     }
 }
 
+int DataBase::getApprovedTime(const QString &monthYear, const QString &code)
+{
+    for(auto us: userList)
+    {
+        if(us->getAccepted(monthYear))
+        {
+            for(auto accepted: *us->getAccepted(monthYear))
+            {
+                if(accepted->getPCode() == code)
+                {
+                    return accepted->getPTime();
+                }
+            }
+        }
+    }
+
+    return 0;
+}
+
+bool DataBase::isMonthFrozen(const QString &monthYear, const QString &userName)
+{
+    for(auto us:userList)
+    {
+        if(us->getName() == userName)
+        {
+            return us->isMonthFrozen(monthYear);
+        }
+    }
+
+    return false;
+}
+
 void DataBase::removeEntry()
 {
     for (auto us: userList)
@@ -105,7 +137,15 @@ void DataBase::read()
 {
     QDir directory(QCoreApplication::applicationDirPath());
     directory.cdUp();
-    directory.cd("egui2021z-abass-suliaman/DATABASE");
+
+    QString databaseDirectory = "egui2021z-abass-suliaman/DATABASE/USERS";
+    if(!directory.exists(databaseDirectory))
+    {
+        qDebug() << "directory does not exist, Creating one";
+        directory.mkpath(databaseDirectory);
+    }
+    directory.cd(databaseDirectory);
+    directory.cdUp(); // Going back to Database directory after creating Users subdirectory
 
     /////////Reading Activities/////////////////////
 

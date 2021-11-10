@@ -31,6 +31,11 @@ public:
 
     void editEntry(const QString&code, const QString &subcode ,int time,const QString &description);
     void editApprovedTime(const QString& forUserName, const QString& Month,const QString& code ,int approvedTime);
+
+    int getApprovedTime(const QString &monthYear, const QString & code);
+
+    bool isMonthFrozen(const QString& monthYear, const QString& userName);
+
     void removeEntry();
 private:
 //    inline static DataBase* theInstance;

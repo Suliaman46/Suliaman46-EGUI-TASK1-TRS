@@ -127,6 +127,8 @@ public:
     void editEntry(const QString&code, const QString &subcode ,int time,const QString &description);
     void removeEntry();
 
+
+
     bool getPFrozen() const;
     void setPFrozen(bool newPFrozen);
 
@@ -158,6 +160,8 @@ public:
 
     void editEntry(const QString&code, const QString &subcode ,int time,const QString &description);
     void removeEntry();
+
+    bool isMonthFrozen(const QString& monthYear);
 
 private:
     QString pName;

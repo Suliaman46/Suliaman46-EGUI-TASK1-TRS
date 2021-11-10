@@ -10,21 +10,31 @@ managerTableModel::managerTableModel(const QList<user*> &userList,QObject *paren
                {
                    for(auto ent: *us->getEntries(sessionUser::getInstance().getManagerReportMonth()))
                    {
-                       if(sessionUser::getInstance().getIsManager() && (ent->getData(0).toString() == sessionUser::getInstance().getCodeManager()) )
+                       if(sessionUser::getInstance().getIsManager() /*&& (ent->getData(0).toString() == sessionUser::getInstance().getCodeManager())*/ )
                        {
-                           managerTableDB* toAdd = new managerTableDB;
-                           toAdd->date = ent->getData(4).toString();
-                           toAdd->code = ent->getData(0).toString();
-                           toAdd->subcode = ent->getData(1).toString();
-                           toAdd->time = ent->getData(2).toInt();
-                           toAdd->description = ent->getData(3).toString();
-                           tableList.append(toAdd);
+                           for(auto managerCodes: sessionUser::getInstance().getCodeManager())  // Iterating through all projects managed by the logged in Manager
+                           {
+                               if((ent->getData(0).toString() == managerCodes))
+                               {
+                                       managerTableDB* toAdd = new managerTableDB;
+                                       toAdd->date = ent->getData(4).toString();
+                                       toAdd->code = ent->getData(0).toString();
+                                       toAdd->subcode = ent->getData(1).toString();
+                                       toAdd->time = ent->getData(2).toInt();
+                                       toAdd->description = ent->getData(3).toString();
+                                       tableList.append(toAdd);
+                                       if(!sessionUser::getInstance().getCodeInSelectedMonth().contains(toAdd->code))
+                                            sessionUser::getInstance().appendToCodeInSelectedMonth(toAdd->code);
+                               }
+
+
+                            }
+
                        }
-
                    }
-               }
-        }
+              }
 
+        }
     }
 }
 

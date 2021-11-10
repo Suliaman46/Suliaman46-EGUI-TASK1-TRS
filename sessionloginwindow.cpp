@@ -8,6 +8,8 @@ sessionLoginWindow::sessionLoginWindow(QWidget *parent) :
     ui(new Ui::sessionLoginWindow)
 {
     ui->setupUi(this);
+    setWindowTitle("LOGIN");
+
 }
 
 sessionLoginWindow::~sessionLoginWindow()
@@ -17,6 +19,9 @@ sessionLoginWindow::~sessionLoginWindow()
 
 void sessionLoginWindow::on_pushButton_clicked()
 {
+    bool Flag = false;
+    QStringList toPass;
+
     sessionUser::getInstance().setUserName(ui->lineEdit_userName->text());
     DataBase::getInstance().read();
     for(auto act: DataBase::getInstance().getActivitiesList())
@@ -24,12 +29,16 @@ void sessionLoginWindow::on_pushButton_clicked()
         if(act->manager() == sessionUser::getInstance().getUserName())
         {
             sessionUser::getInstance().setIsManager(true);
-            sessionUser::getInstance().setCodeManager(act->code());
-            break;
+            toPass.append(act->code());
+            Flag = true;
         }
-        else
-            sessionUser::getInstance().setIsManager(false);
+
     }
+    if(!Flag)
+        sessionUser::getInstance().setIsManager(false);
+    else
+        sessionUser::getInstance().setCodeManager(toPass);
+
     this->hide();
 }
 

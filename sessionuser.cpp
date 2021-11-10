@@ -5,6 +5,26 @@ sessionUser::sessionUser()
 
 }
 
+const QStringList &sessionUser::getCodeInSelectedMonth() const
+{
+    return codeInSelectedMonth;
+}
+
+const QStringList &sessionUser::getCodeManager() const
+{
+    return codeManager;
+}
+
+void sessionUser::setCodeManager(const QStringList &newCodeManager)
+{
+    codeManager = newCodeManager;
+}
+
+void sessionUser::appendToCodeInSelectedMonth(const QString &code)
+{
+    codeInSelectedMonth.append(code);
+}
+
 const QString &sessionUser::getManagerReportMonth() const
 {
     return managerReportMonth;
@@ -35,15 +55,7 @@ void sessionUser::setIsManager(bool newIsManager)
     isManager = newIsManager;
 }
 
-const QString &sessionUser::getCodeManager() const
-{
-    return codeManager;
-}
 
-void sessionUser::setCodeManager(const QString &newCodeManager)
-{
-    codeManager = newCodeManager;
-}
 
 int sessionUser::getTotalDailyTime() const
 {

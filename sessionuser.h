@@ -25,14 +25,21 @@ public:
 
     bool getIsManager() const;
     void setIsManager(bool newIsManager);
-    const QString &getCodeManager() const;
-    void setCodeManager(const QString &newCodeManager);
+
+
 
     const QString &getTargetUserForManagerTable() const;
     void setTargetUserForManagerTable(const QString &newTargetUserForManagerTable);
 
     const QString &getManagerReportMonth() const;
     void setManagerReportMonth(const QString &newManagerReportMonth);
+
+    const QStringList &getCodeManager() const;
+    void setCodeManager(const QStringList &newCodeManager);
+
+    void appendToCodeInSelectedMonth(const QString& code);
+
+    const QStringList &getCodeInSelectedMonth() const;
 
 private:
     sessionUser();
@@ -41,7 +48,8 @@ private:
     int rowSelected;
     int totalDailyTime;
     bool isManager;
-    QString codeManager;
+    QStringList codeManager; // Codes of project Managed by Logged in User
+    QStringList codeInSelectedMonth; // Codes of project Managed by Loogged in User in the Month chosen in Main Manager window
     QString targetUserForManagerTable;
     QString managerReportMonth;
 };

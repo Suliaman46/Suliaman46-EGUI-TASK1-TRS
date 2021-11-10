@@ -2,6 +2,7 @@
 #define MANAGEREDITING_H
 
 #include <QDialog>
+#include <QDate>
 
 namespace Ui {
 class managerEditing;
@@ -12,7 +13,7 @@ class managerEditing : public QDialog
     Q_OBJECT
 
 public:
-    explicit managerEditing(QWidget *parent = nullptr);
+    explicit managerEditing(const QDate &date,const QString &userSelected,int RowSelected,QWidget *parent = nullptr);
     ~managerEditing();
 
 private slots:
@@ -20,6 +21,10 @@ private slots:
 
 private:
     Ui::managerEditing *ui;
+    QDate pDate;
+    QString pUserSelected;
+    int pRowSelected;
+
 };
 
 #endif // MANAGEREDITING_H

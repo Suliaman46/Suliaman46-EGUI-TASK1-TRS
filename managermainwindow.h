@@ -24,6 +24,8 @@ private slots:
 
     void on_dateEdit_userDateChanged(const QDate &date);
 
+    void on_comboBox_approvedTime_textActivated(const QString &arg1);
+
 private:
     Ui::managerMainWindow *ui;
 };

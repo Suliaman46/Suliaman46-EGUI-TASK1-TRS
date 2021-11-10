@@ -541,6 +541,17 @@ void user::removeEntry()
     }
 }
 
+bool user::isMonthFrozen(const QString &monthYear)
+{
+    for(auto report: monthlyReports)
+    {
+        if(report->pMY == monthYear)
+        {
+            return report->getPFrozen();
+        }
+    }
+}
+
 
 
 
