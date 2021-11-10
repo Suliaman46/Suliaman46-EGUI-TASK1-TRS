@@ -21,6 +21,8 @@ SOURCES += \
     managerediting.cpp \
     managermainwindow.cpp \
     managertablemodel.cpp \
+    monthlyactivity.cpp \
+    monthlyactivitymodel.cpp \
     sessionloginwindow.cpp \
     sessionuser.cpp
 
@@ -36,6 +38,8 @@ HEADERS += \
     managerediting.h \
     managermainwindow.h \
     managertablemodel.h \
+    monthlyactivity.h \
+    monthlyactivitymodel.h \
     sessionloginwindow.h \
     sessionuser.h
 
@@ -47,6 +51,7 @@ FORMS += \
     mainwindow.ui \
     managerediting.ui \
     managermainwindow.ui \
+    monthlyactivity.ui \
     sessionloginwindow.ui
 
 # Default rules for deployment.

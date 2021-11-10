@@ -7,6 +7,7 @@
 #include "sessionuser.h"
 #include "managermainwindow.h"
 #include "managerediting.h"
+#include "monthlyactivity.h"
 #include <QDebug>
 #include <QTableView>
 #include <QMessageBox>
@@ -153,5 +154,13 @@ void MainWindow::on_managerBtn_clicked()
 
 
 
+}
+
+
+void MainWindow::on_pushButton_clicked()
+{
+    monthlyActivity window;
+    window.setModal(true);
+    window.exec();
 }
 
