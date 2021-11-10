@@ -7,6 +7,7 @@ monthlyActivity::monthlyActivity(QWidget *parent) :
     ui(new Ui::monthlyActivity)
 {
     ui->setupUi(this);
+    setWindowTitle("Month " + sessionUser::getInstance().getDate().toString("MMMM"));
     monthlyActivityModel* myModel = new monthlyActivityModel(DataBase::getInstance().getUserList());
     myModel->initTable(*ui->monthlyTable);
     ui->monthlyTable->setModel(myModel);
