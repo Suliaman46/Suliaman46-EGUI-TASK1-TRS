@@ -26,6 +26,8 @@ private slots:
 
     void on_comboBox_approvedTime_textActivated(const QString &arg1);
 
+    void on_pushButton_activeStatus_clicked();
+
 private:
     Ui::managerMainWindow *ui;
 };

@@ -20,6 +20,11 @@ void sessionUser::setCodeManager(const QStringList &newCodeManager)
     codeManager = newCodeManager;
 }
 
+void sessionUser::appendCodeManager(const QString &code)
+{
+    codeManager.append(code);
+}
+
 void sessionUser::appendToCodeInSelectedMonth(const QString &code)
 {
     codeInSelectedMonth.append(code);

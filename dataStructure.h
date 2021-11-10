@@ -57,6 +57,8 @@ public:
     void create(const QString &code,const QString &name,const QString &manager, bool active, int budget,const QStringList& newSubactivities );
     int sizeActivities();
     QStringList subcodeList(const QString code);
+    bool getActiveStatus(const QString& code);
+    void setActiveStatus(const QString& code,bool status);
 
     const QList<activity*>& getActivitiesList() const;
 

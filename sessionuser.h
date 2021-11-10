@@ -36,6 +36,7 @@ public:
 
     const QStringList &getCodeManager() const;
     void setCodeManager(const QStringList &newCodeManager);
+    void appendCodeManager(const QString& code);
 
     void appendToCodeInSelectedMonth(const QString& code);
 

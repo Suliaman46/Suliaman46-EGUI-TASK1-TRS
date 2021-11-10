@@ -13,7 +13,7 @@ class managerEditing : public QDialog
     Q_OBJECT
 
 public:
-    explicit managerEditing(const QDate &date,const QString &userSelected,int RowSelected,QWidget *parent = nullptr);
+    explicit managerEditing(const QString& userSelected,QWidget *parent = nullptr);
     ~managerEditing();
 
 private slots:
@@ -21,9 +21,6 @@ private slots:
 
 private:
     Ui::managerEditing *ui;
-    QDate pDate;
-    QString pUserSelected;
-    int pRowSelected;
 
 };
 

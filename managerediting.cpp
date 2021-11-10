@@ -1,9 +1,10 @@
 #include "managerediting.h"
 #include "ui_managerediting.h"
 #include "database.h"
+#include <QMessageBox>
 
-managerEditing::managerEditing(const QDate &date,const QString &userSelected,int RowSelected,QWidget *parent) :
-    pDate(date), pUserSelected(userSelected), pRowSelected(RowSelected), QDialog(parent),
+managerEditing::managerEditing(const QString& userSelected,QWidget *parent) :
+     QDialog(parent),
     ui(new Ui::managerEditing)
 {
     ui->setupUi(this);
@@ -23,9 +24,17 @@ managerEditing::~managerEditing()
 
 void managerEditing::on_pushButton_clicked()
 {
-    DataBase::getInstance().editApprovedTime(ui->comboBox_userName->currentText(),
-                                             sessionUser::getInstance().getManagerReportMonth(),
-                                             ui->comboBox_code->currentText(),
-                                             ui->lineEdit_time->text().toInt());
+    if(ui->lineEdit_time->text().isEmpty())
+        QMessageBox::information(this,"Invalid Inputs","Please input Time");
+    else
+    {
+
+        DataBase::getInstance().editApprovedTime(ui->comboBox_userName->currentText().isEmpty() ? ui->comboBox_userName->placeholderText(): ui->comboBox_userName->currentText(),
+                                                 sessionUser::getInstance().getManagerReportMonth(),
+                                                 ui->comboBox_code->currentText().isEmpty() ? ui->comboBox_code->placeholderText() : ui->comboBox_code->currentText(),
+                                                 ui->lineEdit_time->text().toInt());
+    }
+
+    close();
 }
 

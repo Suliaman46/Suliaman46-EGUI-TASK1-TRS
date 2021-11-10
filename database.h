@@ -36,6 +36,10 @@ public:
 
     bool isMonthFrozen(const QString& monthYear, const QString& userName);
 
+    bool getActiveStatus(const QString& code);
+
+    void setActiveStatus(const QString& code, bool status);
+
     void removeEntry();
 private:
 //    inline static DataBase* theInstance;

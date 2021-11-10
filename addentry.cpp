@@ -31,7 +31,7 @@ void addEntry::on_comboBox_code_textActivated(const QString &arg1)
 void addEntry::on_pushButton_enter_clicked()
 {
     if(ui->comboBox_code->currentText().isEmpty() || ui->lineEdit_time->text().isEmpty())
-        QMessageBox::information(this,"Invalid Inputs","Please check your input Data");
+        QMessageBox::information(this,"Invalid Inputs","Please input Code and Time");
 
     else
         DataBase::getInstance().addEntry(ui->comboBox_code->currentText(),

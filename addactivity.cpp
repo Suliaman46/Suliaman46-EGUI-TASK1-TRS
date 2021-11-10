@@ -20,7 +20,7 @@ addActivity::~addActivity()
 void addActivity::on_pushButton_clicked()
 {
     if(ui->lineEdit_code->text().isEmpty() || ui->lineEdit_budget->text().isEmpty())
-        QMessageBox::information(this,"Invalid Inputs","Please check your input Data");
+        QMessageBox::information(this,"Invalid Inputs","Please enter code and budget Data");
     else
     {
         QStringList subActivitiesList;
@@ -37,6 +37,8 @@ void addActivity::on_pushButton_clicked()
                     true,
                     ui->lineEdit_budget->text().toInt(),subActivitiesList);
 
+        sessionUser::getInstance().setIsManager(true);
+        sessionUser::getInstance().appendCodeManager(ui->lineEdit_code->text());
         close();
     }
 

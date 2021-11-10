@@ -9,6 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    activestatus.cpp \
     addactivity.cpp \
     addentry.cpp \
     dataStructure.cpp \
@@ -24,6 +25,7 @@ SOURCES += \
     sessionuser.cpp
 
 HEADERS += \
+    activestatus.h \
     addactivity.h \
     addentry.h \
     dataStructure.h \
@@ -38,6 +40,7 @@ HEADERS += \
     sessionuser.h
 
 FORMS += \
+    activestatus.ui \
     addactivity.ui \
     addentry.ui \
     editentry.ui \

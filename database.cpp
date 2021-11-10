@@ -123,6 +123,16 @@ bool DataBase::isMonthFrozen(const QString &monthYear, const QString &userName)
     return false;
 }
 
+bool DataBase::getActiveStatus(const QString &code)
+{
+    return activitiesList->getActiveStatus(code);
+}
+
+void DataBase::setActiveStatus(const QString &code, bool status)
+{
+    return activitiesList->setActiveStatus(code,status);
+}
+
 void DataBase::removeEntry()
 {
     for (auto us: userList)

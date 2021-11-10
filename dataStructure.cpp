@@ -171,6 +171,30 @@ QStringList activities::subcodeList(const QString code)
     return QStringList(); //else returning empty string list
 }
 
+bool activities::getActiveStatus(const QString &code)
+{
+    foreach(const activity* act,  pActivitiesList)
+    {
+        if(act->code() == code)
+        {
+            return act->active();
+        }
+    }
+
+    return false;
+}
+
+void activities::setActiveStatus(const QString &code, bool status)
+{
+    foreach(activity* act,  pActivitiesList)
+    {
+        if(act->code() == code)
+        {
+            act->setActive(status);
+        }
+    }
+}
+
 const QList<activity *> &activities::getActivitiesList() const
 {
     return pActivitiesList;

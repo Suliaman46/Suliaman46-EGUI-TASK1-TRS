@@ -4,6 +4,7 @@
 #include "sessionuser.h"
 #include "managerediting.h"
 #include "managertablemodel.h"
+#include "activestatus.h"
 
 managerMainWindow::managerMainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -28,14 +29,20 @@ void managerMainWindow::refreshModel()
     managerTableModel* myModel = new managerTableModel(DataBase::getInstance().getUserList());
     myModel->initTable(*ui->managerTblView);
     ui->managerTblView->setModel(myModel);
+    ui->comboBox_approvedTime->clear();
+    ui->label_approvedTime->clear();
     ui->comboBox_approvedTime->addItems(sessionUser::getInstance().getCodeInSelectedMonth());
     ui->label_frozen->setText((DataBase::getInstance().isMonthFrozen(ui->dateEdit->date().toString("yyyy-MM"),ui->comboBox_userName->currentText()))? "true":"false" );
 
+    if(ui->comboBox_approvedTime->currentIndex() == -1)
+    {
+        ui->pushButton->setEnabled(false);
+    }
 }
 
 void managerMainWindow::on_pushButton_clicked()
 {
-    managerEditing managerEditingWindow(ui->dateEdit->date(),ui->comboBox_userName->currentText(),0);
+    managerEditing managerEditingWindow(ui->comboBox_userName->currentText());
     managerEditingWindow.setModal(true);
     managerEditingWindow.exec();
     refreshModel();
@@ -45,6 +52,7 @@ void managerMainWindow::on_pushButton_clicked()
 void managerMainWindow::on_comboBox_userName_textActivated(const QString &arg1)
 {
     sessionUser::getInstance().setTargetUserForManagerTable(arg1);
+    refreshModel();
 }
 
 
@@ -60,6 +68,15 @@ void managerMainWindow::on_comboBox_approvedTime_textActivated(const QString &ar
 {
     int time = DataBase::getInstance().getApprovedTime(ui->dateEdit->date().toString("yyyy-MM"),arg1);
     ui->label_approvedTime->setText(QString::number(time));
+    ui->pushButton->setEnabled(true);
 
+}
+
+
+void managerMainWindow::on_pushButton_activeStatus_clicked()
+{
+    activeStatus activeStatusWindow;
+    activeStatusWindow.setModal(true);
+    activeStatusWindow.exec();
 }
 
